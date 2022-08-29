@@ -1,4 +1,7 @@
-USE Bob_Ross;
+set global local_infile=true;
+CREATE DATEBASE IF NOT EXISTS `bob_ross`;
+
+USE bob_ross;
 CREATE TABLE IF NOT EXISTS objects (
     episode varCHAR(255) NOT NULL,
     title varCHAR(60),
@@ -73,11 +76,12 @@ CREATE TABLE IF NOT EXISTS objects (
 );
 
 LOAD DATA LOCAL
-    INFILE './datasets/TJOP - Subject Matter' INTO TABLE objects
+    INFILE './datasets/TJOP - Subject Matter'
+    INTO TABLE objects
     FIELDS TERMINATED BY ','
     IGNORE 1 ROWS;
 
-ALTER TABLE objects
-    DROP COLUMN title;
+ALTER TABLE objects DROP COLUMN title;
+set global local_infile=false;
 
 
